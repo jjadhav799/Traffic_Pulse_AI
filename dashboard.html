@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TrafficPulse AI | Smart Traffic Management</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-900 text-white">
+    <!-- Navigation -->
+    <nav class="bg-gray-800 shadow-lg p-4">
+      <div class="container mx-auto flex justify-between items-center">
+        <a href="#" class="flex items-center text-xl font-bold text-white">
+          <img src="/logo.png" alt="TrafficPulse AI Logo" class="h-10 mr-3" />
+          TrafficPulse AI
+        </a>
+        <button class="md:hidden text-white focus:outline-none">
+          <i class="fas fa-bars text-2xl"></i>
+        </button>
+        <ul class="hidden md:flex space-x-6">
+          <li><a href="#" class="hover:text-yellow-400"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+          <li><a href="#" class="hover:text-yellow-400"><i class="fas fa-camera"></i> Detection</a></li>
+          <li><a href="#" class="hover:text-yellow-400"><i class="fas fa-traffic-light"></i> Traffic Signals</a></li>
+          <li><a href="#" class="hover:text-yellow-400"><i class="fas fa-chart-line"></i> Analytics</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto mt-6 p-6">
+      <h1 class="text-4xl font-bold text-yellow-400">Traffic Management Dashboard</h1>
+      <p class="text-gray-300 mt-2">Real-time AI-powered traffic monitoring and optimization</p>
+      <hr class="my-4 border-gray-700" />
+
+      <!-- Key Metrics -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div class="bg-blue-600 p-6 rounded-lg shadow-lg text-center">
+          <h5 class="text-xl font-bold">Total Vehicles</h5>
+          <h2 class="text-4xl font-extrabold" id="totalVehicleCount">0</h2>
+          <p>Detected Today</p>
+        </div>
+        <div class="bg-green-600 p-6 rounded-lg shadow-lg text-center">
+          <h5 class="text-xl font-bold">Traffic Flow</h5>
+          <h2 class="text-4xl font-extrabold" id="trafficFlowStatus">Normal</h2>
+          <p>Current Status</p>
+        </div>
+        <div class="bg-indigo-600 p-6 rounded-lg shadow-lg text-center">
+          <h5 class="text-xl font-bold">Active Signals</h5>
+          <h2 class="text-4xl font-extrabold" id="activeSignalsCount">0</h2>
+          <p>Currently Monitored</p>
+        </div>
+        <div class="bg-yellow-500 text-gray-900 p-6 rounded-lg shadow-lg text-center">
+          <h5 class="text-xl font-bold">Emergency Vehicles</h5>
+          <h2 class="text-4xl font-extrabold" id="emergencyCount">0</h2>
+          <p>Priority Routes</p>
+        </div>
+      </div>
+
+      <!-- Live Detection Videos -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="bg-gray-800 p-4 rounded-lg shadow-lg text-center">
+          <h5 class="text-xl font-bold mb-2">North-South</h5>
+          <video class="w-full h-40 rounded-lg" controls autoplay loop>
+            <source src="/1.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <div class="bg-gray-800 p-4 rounded-lg shadow-lg text-center">
+          <h5 class="text-xl font-bold mb-2">East-West</h5>
+          <video class="w-full h-40 rounded-lg" controls autoplay loop>
+            <source src="/2.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <div class="bg-gray-800 p-4 rounded-lg shadow-lg text-center">
+          <h5 class="text-xl font-bold mb-2">North-East</h5>
+          <video class="w-full h-40 rounded-lg" controls autoplay loop>
+            <source src="/3.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <div class="bg-gray-800 p-4 rounded-lg shadow-lg text-center">
+          <h5 class="text-xl font-bold mb-2">South-West</h5>
+          <video class="w-full h-40 rounded-lg" controls autoplay loop>
+            <source src="/4.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+
+      <!-- Signal Timing Table -->
+      <div class="mt-8">
+        <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+          <h5 class="text-2xl font-bold mb-4"><i class="fas fa-clock"></i> Signal Timing Overview</h5>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border border-gray-700">
+              <thead class="bg-gray-700 text-yellow-400">
+                <tr>
+                  <th class="p-3">Lane</th>
+                  <th class="p-3">Green Signal Time</th>
+                  <th class="p-3">Other Allocation Time</th>
+                  <th class="p-3">Current Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-t border-gray-600">
+                  <td class="p-3">North-South</td>
+                  <td class="p-3 text-green-400" id="nsGreen">30s</td>
+                  <td class="p-3" id="nsOther">90s</td>
+                  <td class="p-3 text-green-500" id="nsStatus">Active</td>
+                </tr>
+                <tr class="border-t border-gray-600">
+                  <td class="p-3">East-West</td>
+                  <td class="p-3 text-green-400" id="ewGreen">20s</td>
+                  <td class="p-3" id="ewOther">100s</td>
+                  <td class="p-3 text-red-500" id="ewStatus">Waiting</td>
+                </tr>
+                <tr class="border-t border-gray-600">
+                  <td class="p-3">North-East</td>
+                  <td class="p-3 text-green-400" id="neGreen">25s</td>
+                  <td class="p-3" id="neOther">95s</td>
+                  <td class="p-3 text-red-500" id="neStatus">Waiting</td>
+                </tr>
+                <tr class="border-t border-gray-600">
+                  <td class="p-3">South-West</td>
+                  <td class="p-3 text-green-400" id="swGreen">15s</td>
+                  <td class="p-3" id="swOther">105s</td>
+                  <td class="p-3 text-red-500" id="swStatus">Waiting</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  // Constants
+  const TOTAL_CYCLE_TIME = 120; // Total cycle time in seconds
+  const YELLOW_TIME = 3; // Yellow light duration in seconds
+  const LANES = ["North-South", "East-West", "North-East", "South-West"];
+
+  // Function to generate random data for demo purposes
+  function generateRandomData() {
+    const totalVehicles = Math.floor(Math.random() * 401); // Random number between 0 and 400
+    const activeSignals = Math.floor(Math.random() * 2); // Random number (0 or 1)
+    const emergencyCount = Math.floor(Math.random() * 11); // Random number between 0 and 10
+
+    // Determine traffic flow based on total vehicles
+    let trafficFlow;
+    if (totalVehicles <= 100) {
+      trafficFlow = "Low";
+    } else if (totalVehicles <= 300) {
+      trafficFlow = "Normal";
+    } else {
+      trafficFlow = "Congested";
+    }
+
+    // Calculate green times for each lane
+    const greenTimes = calculateGreenTimes(totalVehicles);
+
+    // Generate signal statuses: 1 GREEN, 1 YELLOW, and 2 RED
+    const signalStatuses = generateSignalStatuses();
+
+    // Generate signal timings and statuses
+    const signalTimings = {
+      nsGreen: greenTimes[0],
+      ewGreen: greenTimes[1],
+      neGreen: greenTimes[2],
+      swGreen: greenTimes[3],
+      nsStatus: signalStatuses[0], // Status for North-South
+      ewStatus: signalStatuses[1], // Status for East-West
+      neStatus: signalStatuses[2], // Status for North-East
+      swStatus: signalStatuses[3], // Status for South-West
+    };
+
+    return {
+      total_vehicles: totalVehicles,
+      traffic_flow: trafficFlow,
+      active_signals: activeSignals,
+      emergency_count: emergencyCount,
+      signal_timings: signalTimings,
+    };
+  }
+
+  // Function to calculate green times for each lane
+  function calculateGreenTimes(totalVehicles) {
+    // Base green time allocation
+    const baseGreenTime = 20; // Base green time for each lane
+    const totalBaseTime = baseGreenTime * LANES.length; // Total base time for all lanes
+
+    // Remaining time after base allocation
+    const remainingTime = TOTAL_CYCLE_TIME - totalBaseTime - YELLOW_TIME * LANES.length;
+
+    // Allocate remaining time proportionally based on traffic
+    const greenTimes = LANES.map(() => baseGreenTime); // Start with base green time
+
+    if (remainingTime > 0) {
+      // Distribute remaining time based on traffic
+      const trafficWeight = Math.random(); // Simulate traffic weight for demo
+      const additionalTime = Math.floor(remainingTime * trafficWeight);
+
+      // Add additional time to a random lane
+      const randomLaneIndex = Math.floor(Math.random() * LANES.length);
+      greenTimes[randomLaneIndex] += additionalTime;
+    }
+
+    return greenTimes;
+  }
+
+  // Function to generate signal statuses: 1 GREEN, 1 YELLOW, and 2 RED
+  function generateSignalStatuses() {
+    const statuses = ["RED", "RED", "RED", "RED"]; // Start with all RED
+
+    // Randomly select one lane to be GREEN
+    const greenIndex = Math.floor(Math.random() * LANES.length);
+    statuses[greenIndex] = "GREEN";
+
+    // Randomly select one lane to be YELLOW (excluding the GREEN lane)
+    let yellowIndex;
+    do {
+      yellowIndex = Math.floor(Math.random() * LANES.length);
+    } while (yellowIndex === greenIndex); // Ensure YELLOW is not the same as GREEN
+    statuses[yellowIndex] = "YELLOW";
+
+    return statuses;
+  }
+
+  // Function to update the dashboard with new data
+  function updateDashboard(data) {
+    // Update Key Metrics
+    document.getElementById("totalVehicleCount").textContent = data.total_vehicles;
+    document.getElementById("trafficFlowStatus").textContent = data.traffic_flow;
+    document.getElementById("activeSignalsCount").textContent = data.active_signals;
+    document.getElementById("emergencyCount").textContent = data.emergency_count;
+
+    // Update Signal Timing Table
+    document.getElementById("nsGreen").textContent = `${data.signal_timings.nsGreen}s`;
+    document.getElementById("ewGreen").textContent = `${data.signal_timings.ewGreen}s`;
+    document.getElementById("neGreen").textContent = `${data.signal_timings.neGreen}s`;
+    document.getElementById("swGreen").textContent = `${data.signal_timings.swGreen}s`;
+
+    document.getElementById("nsStatus").textContent = data.signal_timings.nsStatus;
+    document.getElementById("ewStatus").textContent = data.signal_timings.ewStatus;
+    document.getElementById("neStatus").textContent = data.signal_timings.neStatus;
+    document.getElementById("swStatus").textContent = data.signal_timings.swStatus;
+
+    // Update status colors
+    const updateStatusColor = (id, status) => {
+      const element = document.getElementById(id);
+      if (status === "GREEN") {
+        element.className = "p-3 text-green-500";
+      } else if (status === "YELLOW") {
+        element.className = "p-3 text-yellow-500";
+      } else {
+        element.className = "p-3 text-red-500";
+      }
+    };
+
+    updateStatusColor("nsStatus", data.signal_timings.nsStatus);
+    updateStatusColor("ewStatus", data.signal_timings.ewStatus);
+    updateStatusColor("neStatus", data.signal_timings.neStatus);
+    updateStatusColor("swStatus", data.signal_timings.swStatus);
+  }
+
+  // Simulate WebSocket updates every 10 seconds
+  setInterval(() => {
+    const data = generateRandomData();
+    updateDashboard(data);
+  }, 10000); // Update every 10 seconds
+
+  // Initial update
+  const initialData = generateRandomData();
+  updateDashboard(initialData);
+</script>
+
+      <!-- Filters & Reports Section -->
+      <div class="mt-8 bg-gray-800 p-6 rounded-lg shadow-lg">
+        <h2 class="text-2xl font-bold mb-4">Filters & Reports</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <!-- Vehicle Type Filter -->
+          <div>
+            <label class="block text-gray-300 mb-2">Vehicle Type:</label>
+            <select id="vehicleTypeFilter" class="w-full p-2 rounded-lg bg-gray-700 text-white">
+              <option value="All">All</option>
+              <option value="Car">Car</option>
+              <option value="Truck">Truck</option>
+              <option value="Bus">Bus</option>
+            </select>
+          </div>
+          <!-- Date Range Filter -->
+          <div>
+            <label class="block text-gray-300 mb-2">Date Range:</label>
+            <div class="flex space-x-4">
+              <input type="date" id="startDate" class="w-full p-2 rounded-lg bg-gray-700 text-white" />
+              <input type="date" id="endDate" class="w-full p-2 rounded-lg bg-gray-700 text-white" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Data Table -->
+        <div class="overflow-x-auto mb-6">
+          <table id="dataTable" class="w-full text-left border border-gray-700">
+            <thead class="bg-gray-700 text-yellow-400">
+              <tr>
+                <th class="p-3">Vehicle Type</th>
+                <th class="p-3">Count</th>
+                <th class="p-3">Date</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+              <!-- Data will be populated here -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Download Buttons -->
+        <div class="flex justify-between">
+          <button id="downloadPdf" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+            Download PDF
+          </button>
+          <button id="downloadCsv" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">
+            Download CSV
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Dummy CSV data
+      const dummyCsvData = `Vehicle Type,Count,Date
+Car,150,2023-01-01
+Truck,50,2023-01-01
+Bus,30,2023-01-01
+Car,200,2023-02-01
+Truck,60,2023-02-01
+Bus,40,2023-02-01
+Car,180,2023-03-01
+Truck,55,2023-03-01
+Bus,35,2023-03-01
+Car,220,2023-04-01
+Truck,70,2023-04-01
+Bus,45,2023-04-01
+Car,190,2023-05-01
+Truck,65,2023-05-01
+Bus,50,2023-05-01
+Car,210,2023-06-01
+Truck,75,2023-06-01
+Bus,55,2023-06-01
+Car,230,2023-07-01
+Truck,80,2023-07-01
+Bus,60,2023-07-01
+Car,240,2023-08-01
+Truck,85,2023-08-01
+Bus,65,2023-08-01
+Car,250,2023-09-01
+Truck,90,2023-09-01
+Bus,70,2023-09-01
+Car,260,2023-10-01
+Truck,95,2023-10-01
+Bus,75,2023-10-01
+Car,270,2023-11-01
+Truck,100,2023-11-01
+Bus,80,2023-11-01
+Car,280,2023-12-01
+Truck,105,2023-12-01
+Bus,85,2023-12-01
+Car,300,2024-01-01
+Truck,110,2024-01-01
+Bus,90,2024-01-01
+Car,310,2024-02-01
+Truck,115,2024-02-01
+Bus,95,2024-02-01
+Car,320,2024-03-01
+Truck,120,2024-03-01
+Bus,100,2024-03-01
+Car,330,2024-04-01
+Truck,125,2024-04-01
+Bus,105,2024-04-01
+Car,340,2024-05-01
+Truck,130,2024-05-01
+Bus,110,2024-05-01
+Car,350,2024-06-01
+Truck,135,2024-06-01
+Bus,115,2024-06-01
+Car,360,2024-07-01
+Truck,140,2024-07-01
+Bus,120,2024-07-01
+Car,370,2024-08-01
+Truck,145,2024-08-01
+Bus,125,2024-08-01
+Car,380,2024-09-01
+Truck,150,2024-09-01
+Bus,130,2024-09-01
+Car,390,2024-10-01
+Truck,155,2024-10-01
+Bus,135,2024-10-01
+Car,400,2024-11-01
+Truck,160,2024-11-01
+Bus,140,2024-11-01
+Car,410,2024-12-01
+Truck,165,2024-12-01
+Bus,145,2024-12-01
+Car,420,2025-01-01
+Truck,170,2025-01-01
+Bus,150,2025-01-01
+Car,430,2025-02-01
+Truck,175,2025-02-01
+Bus,155,2025-02-01
+Car,440,2025-03-01
+Truck,180,2025-03-01
+Bus,160,2025-03-01
+Car,450,2025-04-01
+Truck,185,2025-04-01
+Bus,165,2025-04-01
+Car,460,2025-05-01
+Truck,190,2025-05-01
+Bus,170,2025-05-01
+Car,470,2025-06-01
+Truck,195,2025-06-01
+Bus,175,2025-06-01
+Car,480,2025-07-01
+Truck,200,2025-07-01
+Bus,180,2025-07-01
+Car,490,2025-08-01
+Truck,205,2025-08-01
+Bus,185,2025-08-01
+Car,500,2025-09-01
+Truck,210,2025-09-01
+Bus,190,2025-09-01
+Car,510,2025-10-01
+Truck,215,2025-10-01
+Bus,195,2025-10-01
+Car,520,2025-11-01
+Truck,220,2025-11-01
+Bus,200,2025-11-01
+Car,530,2025-12-01
+Truck,225,2025-12-01
+Bus,205,2025-12-01`;
+
+      // Parse CSV data into an array of objects
+      const rows = dummyCsvData.split("\n");
+      const headers = rows[0].split(",");
+      const data = rows.slice(1).map((row) => {
+        const values = row.split(",");
+        return headers.reduce((obj, header, index) => {
+          obj[header] = values[index];
+          return obj;
+        }, {});
+      });
+
+      // Function to populate the table with data
+      function populateTable(filteredData) {
+        const tableBody = document.getElementById("tableBody");
+        tableBody.innerHTML = ""; // Clear existing rows
+        filteredData.forEach((row) => {
+          const tr = document.createElement("tr");
+          tr.className = "border-t border-gray-600";
+          tr.innerHTML = `
+            <td class="p-3">${row["Vehicle Type"]}</td>
+            <td class="p-3">${row["Count"]}</td>
+            <td class="p-3">${row["Date"]}</td>
+          `;
+          tableBody.appendChild(tr);
+        });
+      }
+
+      // Function to filter data based on vehicle type and date range
+      function filterData() {
+        const vehicleType = document.getElementById("vehicleTypeFilter").value;
+        const startDate = document.getElementById("startDate").value;
+        const endDate = document.getElementById("endDate").value;
+
+        let filteredData = data;
+
+        // Filter by vehicle type
+        if (vehicleType !== "All") {
+          filteredData = filteredData.filter((row) => row["Vehicle Type"] === vehicleType);
+        }
+
+        // Filter by date range
+        if (startDate && endDate) {
+          filteredData = filteredData.filter((row) => {
+            const rowDate = new Date(row["Date"]);
+            return rowDate >= new Date(startDate) && rowDate <= new Date(endDate);
+          });
+        }
+
+        populateTable(filteredData);
+      }
+
+      // Add event listeners for filters
+      document.getElementById("vehicleTypeFilter").addEventListener("change", filterData);
+      document.getElementById("startDate").addEventListener("change", filterData);

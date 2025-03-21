@@ -1,0 +1,154 @@
+/* styles.css */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #000428, #004e92);
+    color: white;
+    text-align: center;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 50, 0.8);
+    padding: 15px 20px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-img {
+    width: 60px;
+    height: 60px;
+    margin-right: 10px;
+}
+
+.title {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links li {
+    margin: 0 15px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: #1e90ff;
+}
+
+.menu-toggle {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 100px;
+    text-align: left;
+}
+
+.hero-content {
+    max-width: 45%;
+    font-size: 2rem;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+}
+
+.join-btn {
+    background: #1e90ff;
+    border: none;
+    padding: 15px 30px;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    margin-top: 20px;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.join-btn:hover {
+    background: #004e92;
+}
+
+.hero-image {
+    max-width: 50%;
+    display: flex;
+    justify-content: center;
+}
+
+.hero-image img {
+    width: 100%;
+    height: auto;
+    max-width: 900px;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 15px;
+    }
+    
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        background: rgba(0, 0, 50, 0.9);
+    }
+    
+    .nav-links li {
+        margin: 10px 0;
+    }
+    
+    .menu-toggle {
+        display: block;
+    }
+    
+    .hero {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .hero-content {
+        max-width: 100%;
+        font-size: 1.6rem;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-image {
+        max-width: 100%;
+    }
+}
